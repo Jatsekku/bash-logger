@@ -3,14 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-      ];
+      systems = [ "x86_64-linux" ];
       perSystem =
         {
           config,
@@ -21,13 +20,14 @@
           ...
         }:
         {
-          # Set formatter for nix fmt
           formatter = pkgs.nixfmt-rfc-style;
 
           packages.logger = pkgs.callPackage ./package.nix { };
           packages.default = config.packages.logger;
 
-          devShells.default = config.packages.default;
         };
+      flake = {
+        nixosModule.default = import ./module.nix;
+      };
     };
 }
