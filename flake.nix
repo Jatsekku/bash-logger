@@ -24,10 +24,10 @@
 
           packages.logger = pkgs.callPackage ./package.nix { };
           packages.default = config.packages.logger;
-
         };
+
       flake = {
-        nixosModule.default = import ./module.nix;
+        nixosModules.default = import ./module.nix;
       };
     };
 }
