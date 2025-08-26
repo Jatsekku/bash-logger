@@ -168,7 +168,7 @@ logger_register_module() {
     local -r module_name="$1"
     local -r module_log_level="$2"
 
-    local -r registrant="${BASH_SOURCE[1]}"
+    local -r registrant="${BASH_SOURCE[1]:-bash}"
 
     __logger_modules_log_levels["$registrant"]="$module_log_level"
     __logger_modules_names["$registrant"]="$module_name"
@@ -222,7 +222,7 @@ log() {
 }
 
 log_err() {
-    local -r caller_file="${BASH_SOURCE[1]}"
+    local -r caller_file="${BASH_SOURCE[1]:-bash}"
 
     if ! __logger_has_log_sufficient_level "$caller_file" "${LOG_LEVEL_ERR}"; then
         return 0
@@ -240,7 +240,7 @@ log_err() {
 }
 
 log_wrn() {
-    local -r caller_file="${BASH_SOURCE[1]}"
+    local -r caller_file="${BASH_SOURCE[1]:-bash}"
 
     if ! __logger_has_log_sufficient_level "$caller_file" "${LOG_LEVEL_WRN}"; then
         return 0
@@ -258,7 +258,7 @@ log_wrn() {
 }
 
 log_inf() {
-    local -r caller_file="${BASH_SOURCE[1]}"
+    local -r caller_file="${BASH_SOURCE[1]:-bash}"
 
     if ! __logger_has_log_sufficient_level "$caller_file" "${LOG_LEVEL_INF}"; then
         return 0
@@ -276,7 +276,7 @@ log_inf() {
 }
 
 log_dbg() {
-    local -r caller_file="${BASH_SOURCE[1]}"
+    local -r caller_file="${BASH_SOURCE[1]:-bash}"
 
     if ! __logger_has_log_sufficient_level "$caller_file" "${LOG_LEVEL_DBG}"; then
         return 0
