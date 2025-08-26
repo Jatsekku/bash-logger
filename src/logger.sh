@@ -52,7 +52,7 @@ declare -A __logger_modules_names
 #### logger global settings ####
 declare -A __logger_global_settings=(
     # Path to file where logs will be stored
-    ["log_file"]="/tmp/test.log"
+    ["log_file"]="/var/log/bash-logger-default.log"
     # Enable file logging
     ["en_file_log"]=1
     # Enable color support for file logging
