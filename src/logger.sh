@@ -140,7 +140,7 @@ __logger_log() {
     local -r caller_line="$4"
     local -r timestamp="$5"
 
-    local -r time_formatted=$(date -d "@$timestamp" "+%Y-%m-%d %H:%M:%S")
+    local -r time_formatted=$(printf '%(%Y-%m-%d %H:%M:%S)T' "$timestamp")
 
     local -r module_name="${__logger_modules_names["${caller_file}"]:-unnamed}"
 
@@ -212,7 +212,7 @@ log() {
 
     local -r message="$2"
     local -r caller_line="${BASH_LINENO[0]}"
-    local -r timestamp="$(date +%s)"
+    local -r timestamp="$EPOCHSECONDS"
 
     __logger_log "$log_level" \
                  "$message" \
@@ -230,7 +230,7 @@ log_err() {
 
     local -r message="$1"
     local -r caller_line="${BASH_LINENO[0]}"
-    local -r timestamp="$(date +%s)"
+    local -r timestamp="$EPOCHSECONDS"
 
     __logger_log "${LOG_LEVEL_ERR}" \
                  "$message" \
@@ -248,7 +248,7 @@ log_wrn() {
 
     local -r message="$1"
     local -r caller_line="${BASH_LINENO[0]}"
-    local -r timestamp="$(date +%s)"
+    local -r timestamp="$EPOCHSECONDS"
 
     __logger_log "${LOG_LEVEL_WRN}" \
                  "$message" \
@@ -266,7 +266,7 @@ log_inf() {
 
     local -r message="$1"
     local -r caller_line="${BASH_LINENO[0]}"
-    local -r timestamp="$(date +%s)"
+    local -r timestamp="$EPOCHSECONDS"
 
     __logger_log "${LOG_LEVEL_INF}" \
                  "$message" \
@@ -284,7 +284,7 @@ log_dbg() {
 
     local -r message="$1"
     local -r caller_line="${BASH_LINENO[0]}"
-    local -r timestamp="$(date +%s)"
+    local -r timestamp="$EPOCHSECONDS"
 
     __logger_log "${LOG_LEVEL_DBG}" \
                  "$message" \
