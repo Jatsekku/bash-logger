@@ -1,12 +1,16 @@
 { pkgs }:
 
 let
-  bash-logger-script = builtins.readFile ./src/logger.sh;
+  bash-logger-scriptPath = ./src/logger.sh;
+  bash-logger-scriptContent = builtins.readFile bash-logger-scriptPath;
 in
 pkgs.writeShellApplication {
   name = "bash-logger";
-  text = bash-logger-script;
+  text = bash-logger-scriptContent;
   runtimeInputs = [
     pkgs.bash
   ];
+  passthru = {
+    scriptPath = bash-logger-scriptPath;
+  };
 }
