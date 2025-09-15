@@ -1,5 +1,12 @@
 { pkgs }:
-pkgs.runCommandLocal "bash-logger" { } ''
-  mkdir -p $out/bin/bash-logger
-  cp ${./src/logger.sh} $out/bin/bash-logger/logger.sh
-''
+
+let
+  bash-logger-script = builtins.readFile ./src/logger.sh;
+in
+pkgs.writeShellApplication {
+  name = "bash-logger";
+  text = bash-logger-script;
+  runtimeInputs = [
+    pkgs.bash
+  ];
+}
