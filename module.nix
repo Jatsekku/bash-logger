@@ -18,7 +18,7 @@ in
     environment.systemPackages = [ bash-logger-pkg ];
 
     environment.etc = lib.mkIf cfg.createEtcSymlink {
-      "bash-logger.sh".source = "${bash-logger-pkg}/bin/bash-logger/logger.sh";
+      "bash-logger.sh".source = "${bash-logger-pkg.passthru.scriptPath}";
     };
   };
 }
