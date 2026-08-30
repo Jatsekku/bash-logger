@@ -127,8 +127,8 @@ __logger_internal_log() {
     local -r level_text="$(__logger_level2text "$log_level")"
     local -r output="logger: [${level_text}] ${msg}"
 
-    # Force log to stdout (prevent capture)
-    echo "$output" >&1
+    # Force log to console (prevent capture)
+    echo "$output" >> "/dev/tty"
 }
 
 #--------------------------- logger log formatting ----------------------------
@@ -356,7 +356,7 @@ __logger_log() {
 
     # Console logging
     if (( __logger_global_settings["en_cons_log"] )); then 
-        echo "${output}" >&1
+        echo "${output}" >> "/dev/tty"
     fi
 
     # File logging
