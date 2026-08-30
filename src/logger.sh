@@ -394,6 +394,12 @@ logger_set_log_format() {
     __logger_set_log_format "$log_format"
 }
 
+logger_enable_file_logging() {
+    local -r enable_file_logging="$1"
+
+    __logger_enable_file_logging "$enable_file_logging"
+}
+
 logger_print_modules_info() {
     echo "Register modules:"
     for registrant in "${!__logger_modules_names[@]}"; do
